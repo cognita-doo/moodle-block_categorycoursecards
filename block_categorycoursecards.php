@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Block definition class for the Category course cards plugin.
+ * Block definition class for the Category Course Cards plugin.
  *
  * @package   block_categorycoursecards
- * @copyright 2026, Saša Dumić, Cognita <sasa.dumic@cognita.hr>
+ * @copyright 2026 Saša Dumić, Cognita <sasa.dumic@cognita.hr>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -65,7 +65,7 @@ class block_categorycoursecards extends block_base {
         $chelper->set_attributes(['class' => 'frontpage-course-list-all']);
 
         $allcourses = [];
-        $categories = $this->config->category ?? [];
+        $categories = (array) ($this->config->category ?? []);
         foreach ($categories as $cat) {
             try {
                 $coursecat = \core_course_category::get($cat);
@@ -136,7 +136,7 @@ class block_categorycoursecards extends block_base {
             $this->title = format_string($this->config->title, true, ['context' => $this->context]);
         } else {
             $categorynames = [];
-            $categories = $this->config->category ?? [];
+            $categories = (array) ($this->config->category ?? []);
 
             foreach ($categories as $cat) {
                 try {

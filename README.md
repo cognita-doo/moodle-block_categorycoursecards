@@ -16,9 +16,9 @@ The block can be added to the Site home or Dashboard. Each block instance can us
 
 ## Requirements
 
-- Moodle 4.5 or later.
+- Moodle 4.5 or later is required by `version.php`.
 
-Compatibility with newer Moodle branches should be declared only after testing the plugin on those branches.
+The initial release is being validated on supported Moodle branches before an explicit compatibility range is declared.
 
 ## Installation
 

@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Languages configuration for the Category course cards plugin.
+ * Languages configuration for the Category Course Cards plugin.
  *
  * @package   block_categorycoursecards
- * @copyright 2026, Saša Dumić, Cognita <sasa.dumic@cognita.hr>
+ * @copyright 2026 Saša Dumić, Cognita <sasa.dumic@cognita.hr>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 

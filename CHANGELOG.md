@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.0 - 2026-08-27
+## 1.0.0 - Unreleased
 
 - Initial public release candidate.
 - Display course cards from one or more selected categories.

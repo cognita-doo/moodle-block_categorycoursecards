@@ -15,10 +15,10 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Block edit form class for the Category course cards plugin.
+ * Block edit form class for the Category Course Cards plugin.
  *
  * @package   block_categorycoursecards
- * @copyright 2026, Saša Dumić, Cognita <sasa.dumic@cognita.hr>
+ * @copyright 2026 Saša Dumić, Cognita <sasa.dumic@cognita.hr>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -93,9 +93,11 @@ class block_categorycoursecards_edit_form extends block_edit_form {
         $errors = parent::validation($data, $files);
         $perpage = $data['config_coursesperpage'] ?? null;
 
-        if (filter_var($perpage, FILTER_VALIDATE_INT) === false
-                || (int) $perpage < self::MIN_COURSES_PER_PAGE
-                || (int) $perpage > self::MAX_COURSES_PER_PAGE) {
+        if (
+            filter_var($perpage, FILTER_VALIDATE_INT) === false
+            || (int) $perpage < self::MIN_COURSES_PER_PAGE
+            || (int) $perpage > self::MAX_COURSES_PER_PAGE
+        ) {
             $errors['config_coursesperpage'] = get_string('coursesperpageinvalid', 'block_categorycoursecards');
         }
 

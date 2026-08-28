@@ -15,12 +15,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Plugin capabilities for the Category course cards plugin.
+ * Plugin capabilities for the Category Course Cards plugin.
  *
  * @package   block_categorycoursecards
- * @copyright 2026, Saša Dumić, Cognita <sasa.dumic@cognita.hr>
+ * @copyright 2026 Saša Dumić, Cognita <sasa.dumic@cognita.hr>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+defined('MOODLE_INTERNAL') || die();
 
 $capabilities = [
     'block/categorycoursecards:myaddinstance' => [

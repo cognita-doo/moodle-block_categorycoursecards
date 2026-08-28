@@ -15,17 +15,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version metadata for the Category course cards plugin.
+ * Version metadata for the Category Course Cards plugin.
  *
  * @package   block_categorycoursecards
- * @copyright 2026, Saša Dumić, Cognita <sasa.dumic@cognita.hr>
+ * @copyright 2026 Saša Dumić, Cognita <sasa.dumic@cognita.hr>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->version = 2026082700;
-$plugin->requires = 2024100100;
+$plugin->requires = 2024100700;
 $plugin->component = 'block_categorycoursecards';
 $plugin->release = '1.0.0';
 $plugin->maturity = MATURITY_STABLE;
