@@ -48,7 +48,7 @@ class block_categorycoursecards extends block_base {
      * @return stdClass The block content.
      */
     public function get_content() {
-        global $OUTPUT, $PAGE;
+        global $OUTPUT, $PAGE, $CFG;
 
         if ($this->content !== null) {
             return $this->content;
@@ -57,7 +57,8 @@ class block_categorycoursecards extends block_base {
         $this->content = new stdClass();
         $this->content->footer = '';
 
-        $chelper = new \coursecat_helper();
+        require_once($CFG->dirroot . '/course/renderer.php');
+        $chelper = new coursecat_helper();
         $recursive = !empty($this->config->recursive);
         $chelper->set_courses_display_options([
             'recursive' => $recursive,

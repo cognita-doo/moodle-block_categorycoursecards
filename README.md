@@ -1,6 +1,6 @@
 # Category Course Cards
 
-Category Course Cards is a Moodle block that displays standard Moodle course cards from one or more selected course categories.
+Category Course Cards is a Moodle block that displays courses from one or more selected course categories using Moodle's standard course renderer.
 
 The block can be added to the Site home or Dashboard. Each block instance can use its own category selection, title, sub-category behaviour, and number of course cards displayed per page.
 
@@ -8,7 +8,7 @@ The block can be added to the Site home or Dashboard. Each block instance can us
 
 - Select one or more course categories.
 - Optionally include courses from sub-categories.
-- Display courses using Moodle's standard course-card renderer.
+- Display courses using Moodle's standard course renderer.
 - Set a custom block title or let the block generate one from the selected categories.
 - Configure the number of course cards per page from 1 to 36; the default is 12.
 - Use multiple independent instances of the block on the same page.
@@ -38,6 +38,12 @@ After adding the block, open its configuration and set:
 - **Courses per page** — number of course cards shown on one page of the block, from 1 to 36.
 
 If no custom title is entered, the block generates a title from the selected category names.
+
+## Display and themes
+
+The plugin uses Moodle's standard course renderer and does not impose its own card or grid layout. The visual presentation of courses therefore depends on the active Moodle theme and the page or block region where the block is displayed.
+
+For example, a theme may render course listings as cards on the Site home while using the standard course listing presentation on the Dashboard. This is expected theme behaviour rather than a plugin limitation.
 
 ## Privacy
 
