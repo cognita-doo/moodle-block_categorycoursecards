@@ -22,11 +22,11 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Category Course Cards';
-$string['categorycoursecards:addinstance'] = 'Add a new Category Course Cards block';
-$string['categorycoursecards:myaddinstance'] = 'Add a new Category Course Cards block to the Dashboard';
+$string['pluginname'] = 'Category course cards';
+$string['categorycoursecards:addinstance'] = 'Add a new category course cards block';
+$string['categorycoursecards:myaddinstance'] = 'Add a new category course cards block to the Dashboard';
 
-$string['newblock'] = 'New Category Course Cards';
+$string['newblock'] = 'New category course cards';
 $string['configtitle'] = 'Block title';
 $string['customtitle'] = 'Courses from {$a}';
 $string['recursive'] = 'Include sub-categories';
@@ -34,7 +34,7 @@ $string['coursesperpage'] = 'Courses per page';
 $string['coursesperpage_help'] = 'Maximum number of course cards displayed on each page of the block. Enter a value from 1 to 36.';
 $string['coursesperpageinvalid'] = 'Courses per page must be a whole number from 1 to 36.';
 
-$string['privacy:metadata'] = 'The Category Course Cards block does not store personal user data. It only displays existing course information from Moodle.';
+$string['privacy:metadata'] = 'The Category course cards block does not store personal user data. It only displays existing course information from Moodle.';
 $string['displaymode'] = 'Course display';
 $string['displaymode_help'] = 'Choose whether courses are displayed using the responsive card layout provided by this plugin or Moodle\'s standard course listing controlled by the active theme.';
 $string['displaymodecards'] = 'Card layout';
