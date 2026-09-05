@@ -1,0 +1,45 @@
+.block_categorycoursecards .categorycoursecards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.block_categorycoursecards .categorycoursecards-card {
+    min-width: 0;
+    overflow: hidden;
+}
+
+.block_categorycoursecards .categorycoursecards-image-link {
+    display: block;
+}
+
+.block_categorycoursecards .categorycoursecards-image-wrapper {
+    aspect-ratio: 16 / 9;
+    display: block;
+    overflow: hidden;
+    width: 100%;
+}
+
+.block_categorycoursecards .categorycoursecards-image {
+    display: block;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+}
+
+.block_categorycoursecards .categorycoursecards-summary {
+    overflow-wrap: anywhere;
+}
+
+@media (max-width: 991.98px) {
+    .block_categorycoursecards .categorycoursecards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 575.98px) {
+    .block_categorycoursecards .categorycoursecards-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

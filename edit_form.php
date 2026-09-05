@@ -70,6 +70,18 @@ class block_categorycoursecards_edit_form extends block_edit_form {
         $mform->setDefault('config_recursive', 1);
 
         $mform->addElement(
+            'select',
+            'config_displaymode',
+            get_string('displaymode', 'block_categorycoursecards'),
+            [
+                'cards' => get_string('displaymodecards', 'block_categorycoursecards'),
+                'theme' => get_string('displaymodetheme', 'block_categorycoursecards'),
+            ]
+        );
+        $mform->setDefault('config_displaymode', 'cards');
+        $mform->addHelpButton('config_displaymode', 'displaymode', 'block_categorycoursecards');
+
+        $mform->addElement(
             'text',
             'config_coursesperpage',
             get_string('coursesperpage', 'block_categorycoursecards'),

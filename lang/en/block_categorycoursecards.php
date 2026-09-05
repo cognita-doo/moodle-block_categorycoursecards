@@ -35,3 +35,7 @@ $string['coursesperpage_help'] = 'Maximum number of course cards displayed on ea
 $string['coursesperpageinvalid'] = 'Courses per page must be a whole number from 1 to 36.';
 
 $string['privacy:metadata'] = 'The Category Course Cards block does not store personal user data. It only displays existing course information from Moodle.';
+$string['displaymode'] = 'Course display';
+$string['displaymode_help'] = 'Choose whether courses are displayed using the responsive card layout provided by this plugin or Moodle\'s standard course listing controlled by the active theme.';
+$string['displaymodecards'] = 'Card layout';
+$string['displaymodetheme'] = 'Theme default';

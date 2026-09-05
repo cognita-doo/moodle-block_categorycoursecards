@@ -33,6 +33,12 @@ class block_categorycoursecards extends block_base {
     /** Maximum number of courses allowed per page. */
     private const MAX_COURSES_PER_PAGE = 36;
 
+    /** Plugin-provided card layout. */
+    private const DISPLAY_MODE_CARDS = 'cards';
+
+    /** Moodle/theme-controlled course listing. */
+    private const DISPLAY_MODE_THEME = 'theme';
+
     /**
      * Initialises the block.
      *
@@ -63,7 +69,6 @@ class block_categorycoursecards extends block_base {
         $chelper->set_courses_display_options([
             'recursive' => $recursive,
         ]);
-        $chelper->set_attributes(['class' => 'frontpage-course-list-all']);
 
         $allcourses = [];
         $categories = (array) ($this->config->category ?? []);
@@ -86,22 +91,38 @@ class block_categorycoursecards extends block_base {
         }
 
         $totalcount = count($allcourses);
-        $pageparam = 'ccpage_' . $this->instance->id;
-        $page = max(0, optional_param($pageparam, 0, PARAM_INT));
+        $pages = optional_param_array('ccpage', [], PARAM_INT);
+        $page = max(0, (int) ($pages[$this->instance->id] ?? 0));
         $maxpage = max(0, (int) ceil($totalcount / $perpage) - 1);
         $page = min($page, $maxpage);
 
         $courses = array_slice($allcourses, $page * $perpage, $perpage, true);
 
-        $cr = $PAGE->get_renderer('core', 'course');
-        $courselist = $cr->courses_list($courses, true, 'frontpage-course-list-all');
+        $displaymode = $this->config->displaymode ?? self::DISPLAY_MODE_THEME;
+        if (!in_array($displaymode, [self::DISPLAY_MODE_CARDS, self::DISPLAY_MODE_THEME], true)) {
+            $displaymode = self::DISPLAY_MODE_CARDS;
+        }
+
+        if ($displaymode === self::DISPLAY_MODE_THEME) {
+            $courselist = $this->render_theme_course_list($courses);
+        } else {
+            $courselist = $this->render_plugin_course_cards($courses, $chelper);
+        }
 
         if ($totalcount > $perpage) {
-            $paginationurl = new moodle_url($PAGE->url);
-            $paginationurl->remove_params($pageparam);
+            $pageparams = [];
+            foreach ($pages as $instanceid => $pagenumber) {
+                if ((int) $instanceid === (int) $this->instance->id) {
+                    continue;
+                }
+
+                $pageparams['ccpage[' . (int) $instanceid . ']'] = (int) $pagenumber;
+            }
+
+            $paginationurl = new moodle_url($PAGE->url, $pageparams);
 
             $pagingbar = new paging_bar($totalcount, $page, $perpage, $paginationurl);
-            $pagingbar->pagevar = $pageparam;
+            $pagingbar->pagevar = 'ccpage[' . $this->instance->id . ']';
             $paginghtml = $OUTPUT->render($pagingbar);
 
             $this->content->text = $paginghtml . $courselist . $paginghtml;
@@ -110,6 +131,76 @@ class block_categorycoursecards extends block_base {
         }
 
         return $this->content;
+    }
+
+    /**
+     * Renders courses using Moodle's standard course renderer.
+     *
+     * @param array $courses Courses to render.
+     * @return string Rendered course list.
+     */
+    private function render_theme_course_list(array $courses): string {
+        global $PAGE;
+
+        $renderer = $PAGE->get_renderer('core', 'course');
+        return $renderer->courses_list($courses, true, 'frontpage-course-list-all');
+    }
+
+    /**
+     * Renders courses using the plugin-provided card layout.
+     *
+     * @param array $courses Courses to render.
+     * @param coursecat_helper $chelper Course category helper used for formatting.
+     * @return string Rendered cards.
+     */
+    private function render_plugin_course_cards(array $courses, coursecat_helper $chelper): string {
+        global $OUTPUT;
+
+        $cardcourses = [];
+        foreach ($courses as $course) {
+            $coursecontext = context_course::instance($course->id);
+            $imageurl = null;
+
+            foreach ($course->get_course_overviewfiles() as $file) {
+                if (!$file->is_valid_image()) {
+                    continue;
+                }
+
+                $imageurl = moodle_url::make_pluginfile_url(
+                    $file->get_contextid(),
+                    $file->get_component(),
+                    $file->get_filearea(),
+                    null,
+                    $file->get_filepath(),
+                    $file->get_filename()
+                )->out(false);
+                break;
+            }
+
+            if ($imageurl === null) {
+                $imageurl = $OUTPUT->get_generated_url_for_course($coursecontext);
+            }
+
+            $cardcourses[] = [
+                'url' => (new moodle_url('/course/view.php', ['id' => $course->id]))->out(false),
+                'imageurl' => $imageurl,
+                'fullname' => $chelper->get_course_formatted_name($course),
+                'summary' => $course->has_summary()
+                    ? shorten_text(
+                        trim(strip_tags($chelper->get_course_formatted_summary(
+                            $course,
+                            ['overflowdiv' => false, 'noclean' => true, 'para' => false]
+                        ))),
+                        220
+                    )
+                    : '',
+                'dimmed' => !$course->visible,
+            ];
+        }
+
+        return $OUTPUT->render_from_template('block_categorycoursecards/course_cards', [
+            'courses' => $cardcourses,
+        ]);
     }
 
     /**
